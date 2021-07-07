@@ -1,0 +1,113 @@
+1st create ec2 instance-linux os
+login
+ssh -i chamu ec2-user@ip
+sudo su -
+#install docker engine
+yum install docker
+#start docker engine
+systemctl start docker
+#install docker-compose
+curl -L "https://github.com/docker/compose/releases/download/1.24.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+chmod +x /usr/local/bin/docker-compose
+docker-compose --version
+#install git
+yum install git
+git clone https://github.com/chamulekkala/react-docker-multi-stage-example.git
+cd react-docker-multi-stage-example/
+ vi docker-compose.yml
+ # inside yaml file write data
+ version: "3.0"
+
+services:
+  hello-world:
+    build: 
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - 8080:8080 
+#install k8s
+curl -o kubectl https://amazon-eks.s3.us-west-2.amazonaws.com/1.20.4/2021-04-12/bin/linux/amd64/kubectl
+ls -ltr
+echo $PATH
+chmod 755 kubectl
+mv kubectl /usr/local/bin/
+kubectl
+#install terraform
+wget https://releases.hashicorp.com/terraform/1.0.1/terraform_1.0.1_linux_amd64.zip
+unzip terraform_1.0.1_linux_amd64.zip
+rm -rf terraform_1.0.1_linux_amd64.zip
+mv terraform /usr/local/bin/
+terraform -version
+#in before create one ec2-adminstrative role attache
+  to the ec2
+  #Set up and initialize your Terraform workspace
+  git clone https://github.com/hashicorp/learn-terraform-provision-eks-cluster
+  cd learn-terraform-provision-eks-cluster/
+  ls -ltr
+# terraform init  
+  terraform init
+  terraform init -upgrade
+#terraform plan
+terraform plan
+terraform apply -yes
+#in inside apply creating inside vpc
+                                 network
+                                 nods
+                                 secutity group
+#crete configfile
+cd
+pwd
+/root
+mkdir .kube
+cd .kube/
+#write config file
+vi config
+apiVersion: v1
+preferences: {}
+kind: Config
+
+clusters:
+- cluster:
+    server: https://2772E79171469AA51A85C9D538AC7FF4.gr7.us-east-2.eks.amazonaws.com
+    certificate-authority-data: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUM1ekNDQWMrZ0F3SUJBZ0lCQURBTkJna3Foa2lHOXcwQkFRc0ZBREFWTVJNd0VRWURWUVFERXdwcmRXSmwKY201bGRHVnpNQjRYRFRJeE1EY3dOakEyTXpnMU4xb1hEVE14TURjd05EQTJNemcxTjFvd0ZURVRNQkVHQTFVRQpBeE1LYTNWaVpYSnVaWFJsY3pDQ0FTSXdEUVlKS29aSWh2Y05BUUVCQlFBRGdnRVBBRENDQVFvQ2dnRUJBSzhYCm5hY0R4MU1pbktxZk5aZ0hRRHJIbXhKdVRPQlQ3dkFCVUdnWWFOci9FWC9TQ0c1eWhJOEswbEhTQUVSNnloZ3IKREVXMWtEYmw5aTY0QnpnMVdvUmk5UnlLNmpnVTEwTm1CUlBBKytybHZEanFLZ3dGRDBsUDdVYmRqbkJBbVRrQgpUcjNQbkVUdlB0bGVBL09wQW1HUHdKZjVDVklFeGRLU1Y5Z3g5eXphc2VUa0NoMXdkTXdENy9GWS9LSkZHYUcxCjR1TE5HZXlMMWxnYjZmbnNFOFc4WlhGNk9iUDhacWoyUXJ6ejN4VUlNRXNmaGRWMHJwRTlLdVQ2VWJWQit0TFIKSG9RbUNXbWRnZXdNUmFhVHNQVC9sNG9VamRlM0tMZ2JjeUk1WGcyL0dIMkxyMkxNSVdNdnNBeFMvRmRzQnMxMQphTVpOdmEwaEZwOE1WTXBQMUZjQ0F3RUFBYU5DTUVBd0RnWURWUjBQQVFIL0JBUURBZ0trTUE4R0ExVWRFd0VCCi93UUZNQU1CQWY4d0hRWURWUjBPQkJZRUZOM1l3K0NleUpXaER3amJYbFVYT1JMYUNVck1NQTBHQ1NxR1NJYjMKRFFFQkN3VUFBNElCQVFDTnhUWlUveGRITVBqZ29uNUFWLzE0OTA3b3A3NTlhdXZOQXVoeVNhbmIzWis3S0xINgpuTjhKSkw4enZVTzFEUDRaSEd0L2gxTTR3eFR6dm5LV2Z6MWhycm1CalVMYmRocUZEVWp2ckhlL2wxSDdvU0IzCmxYTHBTdkgweFlPa3M3WEZ1QjZXNXFvTzRIc2pjLzJHc0pIRC9NajlFNkZPcEhiYlpxdmlGemNPQS84Sm1yaWQKQlFCZll3WEV0TlNESUtITUdJYSt4RWxUd0hxVFhsb1JVUXJGc2NzaFBTaUZ2UFB0UEltVkhUTVFMSU14VjNsRwpJRFdreElaTGs2RGlIV2xZTlF3RFMza0hLUEJHWitLbGVtWXVhc1RUaDhUcHVhWm81a0xjNW1wcWZCSFJiRUJnCnV6SERFSHdSaVdYTWZsNnhua0NuNjBpakkwSHp3U21Rc3N6eAotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg==
+  name: eks_education-eks-yPpoqiBy
+
+contexts:
+- context:
+    cluster: eks_education-eks-yPpoqiBy
+    user: eks_education-eks-yPpoqiBy
+  name: eks_education-eks-yPpoqiBy
+
+current-context: eks_education-eks-yPpoqiBy
+
+users:
+- name: eks_education-eks-yPpoqiBy
+  user:
+    exec:
+      apiVersion: client.authentication.k8s.io/v1alpha1
+      command: aws-iam-authenticator
+      args:
+        - "token"
+        - "-i"
+        - "education-eks-yPpoqiBy"
+kubctl get nodes
+#install one more dependency aws-iam-authentication
+curl -o aws-iam-authenticator https://amazon-eks.s3.us-west-2.amazonaws.com/1.19.6/2021-01-05/bin/linux/amd64/aws-iam-authenticator
+#give pemissions
+chmod 755  aws-iam-authenticator
+mv aws-iam-authenticator
+kubctl get nodes
+#find how many Ns 
+kubectl get Ns
+#check pod wiil be runnig on wich nodes
+ kubectl get po -n kube-system -o wide
+# kube-system is nameservice
+#How to use a Network Load Balancer with the NGINX Ingress resource in Kubernetes
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-0.32.0/deploy/static/provider/aws/deploy.yaml
+kubectl get ns 
+# go inside ns 
+kubectl get ps -n ingress-nginx
+ kubectl get deployment -n ingress-nginx
+  kubectl get rs -n ingress-nginx
+#find services
+kubectl get svc -n ingress-nginx
