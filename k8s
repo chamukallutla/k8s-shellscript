@@ -6,12 +6,44 @@ sudo su -
 yum install docker
 #start docker engine
 systemctl start docker
+#write owne docker file
+mkdir apache
+cd apache/
+vi dockerfile
+    FROM httpd
+    COPY . /usr/local/apache2/htdocs/
+#build images
+docker build apache .
+#ru the container
+docker run -d -p 80:80 apache
+#login to the container
+docker exec -it containerid bash
+#come back to root user
+#create folder for ststic page
+mkdir static
+cd static/
+#jquery templte copy url 
+wget https://www.free-css.com/assets/files/free-css-templates/download/page268/drinker.zip
+unzip drinker.zip
+#see th index.html file write the dockerfile
+#write docker file againe in this PATH
+vi dockerfile
+FROM httpd
+COPY . /usr/local/apache2/htdocs/
+#build images
+#check the inex.html and docker file in same PATH
+docker build -t staticwebpage .
+#run the container
+build run -d -p 8080:80 staticwebsit
+docker ps 
+build run -d -p 8081:80 nginx
 #install docker-compose
 curl -L "https://github.com/docker/compose/releases/download/1.24.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 chmod +x /usr/local/bin/docker-compose
 docker-compose --version
 #install git
 yum install git
+#see the in github in react-js repo and ckeck the dockerfile and gitclone it 
 git clone https://github.com/chamulekkala/react-docker-multi-stage-example.git
 cd react-docker-multi-stage-example/
  vi docker-compose.yml
